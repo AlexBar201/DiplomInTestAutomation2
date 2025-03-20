@@ -1,4 +1,4 @@
-package json.forBodyResponseGetAccessToken;
+package json.jsonForApiAuthorization.forBodyResponseGetAccessToken;
 
 public class User {
     private String email;

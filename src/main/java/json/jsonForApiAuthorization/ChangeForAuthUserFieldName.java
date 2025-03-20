@@ -1,4 +1,4 @@
-package json;
+package json.jsonForApiAuthorization;
 
 public class ChangeForAuthUserFieldName {
     private String name;

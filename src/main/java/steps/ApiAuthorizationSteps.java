@@ -4,10 +4,10 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import json.ApiAuthorizationUserBody;
-import json.ChangeForAuthUserFieldEmail;
-import json.ChangeForAuthUserFieldName;
-import json.forBodyResponseGetAccessToken.BodyResponse;
+import json.jsonForApiAuthorization.ApiAuthorizationUserBody;
+import json.jsonForApiAuthorization.ChangeForAuthUserFieldEmail;
+import json.jsonForApiAuthorization.ChangeForAuthUserFieldName;
+import json.jsonForApiAuthorization.forBodyResponseGetAccessToken.BodyResponse;
 
 import static io.restassured.RestAssured.given;
 
