@@ -161,7 +161,6 @@ public class ApiAuthorizationSteps {
                 .patch(END_POINT_AUTHORIZATION_USER);
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Step("Получение accessToken")
     public String getAccessToken(){
         BodyResponse bodyResponse = createUser().body().as(BodyResponse.class);
