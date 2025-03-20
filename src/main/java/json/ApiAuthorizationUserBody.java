@@ -1,18 +1,24 @@
 package json;
 
-public class CreateUserBody {
+public class ApiAuthorizationUserBody {
 
     private String email;
     private String password;
     private String name;
 
-    public CreateUserBody(String email, String password, String name){
+    public ApiAuthorizationUserBody(String email, String password, String name){
         this.email = email;
         this.password = password;
         this.name = name;
     }
 
-    public CreateUserBody(){}
+    public ApiAuthorizationUserBody(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+
+
+    public ApiAuthorizationUserBody(){}
 
     public String getEmail() {
         return email;
