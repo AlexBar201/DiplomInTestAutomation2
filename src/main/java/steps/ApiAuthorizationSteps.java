@@ -32,10 +32,6 @@ public class ApiAuthorizationSteps {
     String invalidEmail = data.internet().emailAddress("invalidMail1488");
     String invalidPassword = data.internet().password(2, 5);
 
-    public void setUp(){
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-    }
-
     @Step("Создание уникального пользователя")
     public Response createUser(){
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, password, name);

@@ -18,10 +18,6 @@ public class ApiOrdersSteps {
 
     Faker data = new Faker();
 
-    public void setUp(){
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-    }
-
     @Step("Получение id ингредиента")
     public String getBodyIngredients(int Index){
         BodyGetIngredients bodyIngredients = given()
