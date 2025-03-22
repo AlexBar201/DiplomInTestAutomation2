@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Config {
-    private Properties properties;
+    private final Properties properties;
 
     public Config(String filePath){
         properties = new Properties();

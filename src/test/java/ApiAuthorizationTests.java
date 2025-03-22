@@ -19,4 +19,10 @@ public class ApiAuthorizationTests {
         Response response = step.createUser();
         response.then().statusCode(200);
     }
+
+    @Test
+    public void getToken(){
+        ApiAuthorizationSteps step = new ApiAuthorizationSteps();
+        System.out.println(step.getAccessToken());
+    }
 }
