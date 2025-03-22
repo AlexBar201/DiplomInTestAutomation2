@@ -2,12 +2,14 @@ package json.jsonForApiOrders.createOrderBody;
 
 import java.util.List;
 
-public class createOrderBody {
+public class CreateOrderBody {
     private List<String> ingredients;
 
-    public createOrderBody(List<String> ingredients){
+    public CreateOrderBody(List<String> ingredients){
         this.ingredients = ingredients;
     }
+
+    public CreateOrderBody(){}
 
     public List<String> getIngredients() {
         return ingredients;

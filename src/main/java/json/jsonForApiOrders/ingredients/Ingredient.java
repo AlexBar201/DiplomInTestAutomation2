@@ -3,8 +3,7 @@ package json.jsonForApiOrders.ingredients;
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonProperty;
 
 public class Ingredient {
-    @JsonProperty("_id")
-    private String id;
+    private String _id;
     private String name;
     private String type;
     private int proteins;
@@ -21,11 +20,11 @@ public class Ingredient {
     private int v;
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getName() {
