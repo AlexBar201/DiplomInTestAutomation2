@@ -1,19 +1,16 @@
-import config.Config;
-import io.restassured.RestAssured;
+import AndPointAndBaseUri.GetAndSetBaseUri;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 import steps.ApiAuthorizationSteps;
 
 public class ApiAuthorizationTests {
-    private static String baseUri;
 
     @Before
     public void setUp(){
         String configFilePath = "src/main/resources/config.properties";
-        Config config = new Config(configFilePath);
-        baseUri = config.getBaseUri();
-        RestAssured.baseURI = baseUri;
+        GetAndSetBaseUri setBaseUri = new GetAndSetBaseUri(configFilePath);
+        setBaseUri.setUp();
     }
 
     @Test

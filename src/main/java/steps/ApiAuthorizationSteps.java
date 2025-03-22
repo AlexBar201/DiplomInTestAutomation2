@@ -1,8 +1,8 @@
 package steps;
 
+import AndPointAndBaseUri.AndPoints;
 import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import json.jsonForApiAuthorization.ApiAuthorizationUserBody;
 import json.jsonForApiAuthorization.ChangeForAuthUserFieldEmail;
@@ -12,15 +12,6 @@ import json.jsonForApiAuthorization.forBodyResponseGetAccessToken.BodyResponse;
 import static io.restassured.RestAssured.given;
 
 public class ApiAuthorizationSteps {
-
-    //Создание пользователя
-    private final String END_POINT_AUTHORIZATION_REGISTER = "/api/auth/register";
-
-    //Авторизация пользователя
-    private final String END_POINT_AUTHORIZATION_LOGIN = "/api/auth/login";
-
-    //Для удаления пользователя ... возможно для чего-то ещё
-    private final String END_POINT_AUTHORIZATION_USER = "/api/auth/user";
 
     Faker data = new Faker();
     String email = data.internet().emailAddress();
@@ -34,12 +25,13 @@ public class ApiAuthorizationSteps {
 
     @Step("Создание уникального пользователя")
     public Response createUser(){
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, password, name);
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_REGISTER);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_REGISTER());
     }
 
     @Step("Создание уже зарегистрированного пользователя")
@@ -50,111 +42,121 @@ public class ApiAuthorizationSteps {
 
     @Step("Создание пользователя не передав поле \"email\"")
     public Response createUserEmptyEmail(){
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(emailEmpty, password, name);
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_REGISTER);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_REGISTER());
     }
 
     @Step("Создание пользователя не передав поле \"password\"")
     public Response createUserEmptyPassword(){
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, passwordEmpty, name);
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_REGISTER);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_REGISTER());
     }
 
     @Step("Создание пользователя не передав поле \"name\"")
     public Response createUserEmptyName(){
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, password, nameEmpty);
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_REGISTER);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_REGISTER());
     }
 
     @Step("Авторизация существующего пользователя")
     public Response authorizationExistingUser(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, password);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_LOGIN);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_LOGIN());
     }
 
     @Step("Авторизация с неверным логином")
     public Response authorizationInvalidEmail(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(invalidEmail, password);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_LOGIN);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_LOGIN());
     }
 
     @Step("Авторизация с неверным паролем")
     public Response authorizationInvalidPassword(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(email, invalidPassword);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .post(END_POINT_AUTHORIZATION_LOGIN);
+                .post(andPoint.getEND_POINT_AUTHORIZATION_LOGIN());
     }
 
     @Step("Изменение поля email для авторизованного пользователя")
     public Response changeEmailForAuthUser(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ChangeForAuthUserFieldEmail json = new ChangeForAuthUserFieldEmail(email);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken())
                 .body(json)
                 .when()
-                .patch(END_POINT_AUTHORIZATION_USER);
+                .patch(andPoint.getEND_POINT_AUTHORIZATION_USER());
     }
 
     @Step("Изменение поля name для авторизованного пользователя")
     public Response changeNameForAuthUser(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ChangeForAuthUserFieldName json = new ChangeForAuthUserFieldName(name);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .header("Authorization", getAccessToken())
                 .body(json)
                 .when()
-                .patch(END_POINT_AUTHORIZATION_USER);
+                .patch(andPoint.getEND_POINT_AUTHORIZATION_USER());
     }
 
     @Step("Изменение поля email для не авторизованного пользователя")
     public Response changeEmailForUnAuthUser(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ChangeForAuthUserFieldEmail json = new ChangeForAuthUserFieldEmail(email);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .patch(END_POINT_AUTHORIZATION_USER);
+                .patch(andPoint.getEND_POINT_AUTHORIZATION_USER());
     }
 
     @Step("Изменение поля name для не авторизованного пользователя")
     public Response changeNameForUnAuthUser(){
-        createUser();
+        AndPoints andPoint = new AndPoints();
         ChangeForAuthUserFieldName json = new ChangeForAuthUserFieldName(name);
+        createUser();
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
                 .when()
-                .patch(END_POINT_AUTHORIZATION_USER);
+                .patch(andPoint.getEND_POINT_AUTHORIZATION_USER());
     }
 
     @Step("Получение accessToken")
@@ -165,9 +167,10 @@ public class ApiAuthorizationSteps {
 
     @Step("Удаление пользователя")
     public Response deleteUser(){
+        AndPoints andPoint = new AndPoints();
         return given()
                 .header("Authorization", getAccessToken())
                 .when()
-                .delete(END_POINT_AUTHORIZATION_USER);
+                .delete(andPoint.getEND_POINT_AUTHORIZATION_USER());
     }
 }
