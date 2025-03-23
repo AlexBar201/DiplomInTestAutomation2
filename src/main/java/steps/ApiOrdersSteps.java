@@ -13,23 +13,19 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class ApiOrdersSteps {
+
     AndPoints andPoint = new AndPoints();
-    ApiAuthorizationSteps step = new ApiAuthorizationSteps();
 
     @Step("Создание заказа с авторизацией")
-    public Response createAuthOrder(String email, String password, String name){
-        Response createUser = step.createUser(email, password, name);
-        String authToken = step.getAccessToken(createUser);
-        CreateOrderBody json = new CreateOrderBody();
+    public Response createAuthOrder(String accessToken){
         List<String> ingredients = Arrays.asList(getBodyIngredients(0), getBodyIngredients(1));
-        json.setIngredients(ingredients);
-        Response response = given()
+        CreateOrderBody json = new CreateOrderBody(ingredients);
+        return given()
                 .when()
                 .header("Content-type","application/json")
-                .header("Authorization", authToken)
+                .header("Authorization", accessToken)
                 .body(json)
                 .post(andPoint.getEndPointApiOrders());
-        return response;
     }
 
     @Step("Получение id ингредиента")
