@@ -1,8 +1,9 @@
-import AndPointAndBaseUri.GetAndSetBaseUri;
+import and.point.and.base.uri.GetAndSetBaseUri;
 import TestData.TestDataGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import steps.ApiAuthorizationSteps;
@@ -34,7 +35,6 @@ public class ApiCreateOrdersTests {
                 .assertThat()
                 .body("success", equalTo(true))
                 .statusCode(200);
-        authStep.deleteUser(createUser);
     }
 
     @Test
@@ -97,5 +97,12 @@ public class ApiCreateOrdersTests {
                 .assertThat()
                 .body("success", equalTo(false))
                 .statusCode(401);
+    }
+
+    @After
+    public void tearDown(){
+        authStep.deleteUser(authStep.createUser(data.getRandomEmail(), data.getRandomPassword(), data.getRandomName()))
+                .then()
+                .statusCode(202);
     }
 }

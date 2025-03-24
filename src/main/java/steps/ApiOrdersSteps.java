@@ -1,6 +1,6 @@
 package steps;
 
-import AndPointAndBaseUri.AndPoints;
+import and.point.and.base.uri.AndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import json.jsonForApiOrders.createOrderBody.CreateOrderBody;

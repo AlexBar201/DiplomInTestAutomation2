@@ -1,4 +1,4 @@
-package AndPointAndBaseUri;
+package and.point.and.base.uri;
 
 import config.Config;
 import io.restassured.RestAssured;

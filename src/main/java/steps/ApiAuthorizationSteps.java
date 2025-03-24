@@ -1,9 +1,12 @@
 package steps;
 
-import AndPointAndBaseUri.AndPoints;
+import and.point.and.base.uri.AndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import json.jsonForApiAuthorization.*;
+import json.jsonForApiAuthorization.ApiAuthorizationUserBody;
+import json.jsonForApiAuthorization.ApiAuthorizationUserBodyNoFieldPassword;
+import json.jsonForApiAuthorization.ChangeForAuthUserFieldEmail;
+import json.jsonForApiAuthorization.ChangeForAuthUserFieldName;
 import json.jsonForApiAuthorization.forBodyResponseGetAccessToken.BodyResponse;
 
 import static io.restassured.RestAssured.given;
@@ -22,15 +25,9 @@ public class ApiAuthorizationSteps {
                 .post(andPoint.getEndPointAuthorizationRegister());
     }
 
-    @Step("Создание уже зарегистрированного пользователя")
-    public Response createExistingUser(String email, String password, String name){
-        createUser(email, password, name);
-        return createUser(email, password, name);
-    }
-
     @Step("Создание пользователя не передав поле \"email\"")
     public Response createUserEmptyEmail(String password, String name){
-        ApiAuthorizationUserBodyNoFieldEmail json = new ApiAuthorizationUserBodyNoFieldEmail(password, name);
+        ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(null, password, name);
         return given()
                 .header("Content-type", "application/json")
                 .body(json)
@@ -59,8 +56,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Авторизация существующего пользователя")
-    public Response authorizationExistingUser(String email, String password, String name){
-        createUser(email, password, name);
+    public Response authorizationExistingUser(String email, String password){
         ApiAuthorizationUserBody json1 = new ApiAuthorizationUserBody(email, password);
         return given()
                 .header("Content-type", "application/json")
@@ -70,8 +66,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Авторизация с неверным логином")
-    public Response authorizationInvalidEmail(String email, String password, String name, String invalidEmail){
-        createUser(email, password, name);
+    public Response authorizationInvalidEmail(String password, String invalidEmail){
         ApiAuthorizationUserBody json = new ApiAuthorizationUserBody(invalidEmail, password);
         return given()
                 .header("Content-type", "application/json")
@@ -92,8 +87,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Изменение поля email для авторизованного пользователя")
-    public Response changeEmailForAuthUser(String email, String password, String name){
-        Response createUser = createUser(email, password, name);
+    public Response changeEmailForAuthUser(String email, Response createUser){
         ChangeForAuthUserFieldEmail json = new ChangeForAuthUserFieldEmail(email);
         return given()
                 .header("Content-type", "application/json")
@@ -104,8 +98,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Изменение поля name для авторизованного пользователя")
-    public Response changeNameForAuthUser(String email, String password, String name){
-        Response createUser = createUser(email, password, name);
+    public Response changeNameForAuthUser(Response createUser, String name){
         ChangeForAuthUserFieldName json = new ChangeForAuthUserFieldName(name);
         return given()
                 .header("Content-type", "application/json")
@@ -116,8 +109,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Изменение поля email для не авторизованного пользователя")
-    public Response changeEmailForUnAuthUser(String email, String password, String name){
-        createUser(email, password, name);
+    public Response changeEmailForUnAuthUser(String email){
         ChangeForAuthUserFieldEmail json = new ChangeForAuthUserFieldEmail(email);
         return given()
                 .header("Content-type", "application/json")
@@ -127,8 +119,7 @@ public class ApiAuthorizationSteps {
     }
 
     @Step("Изменение поля name для не авторизованного пользователя")
-    public Response changeNameForUnAuthUser(String email, String password, String name){
-        createUser(email, password, name);
+    public Response changeNameForUnAuthUser(String name){
         ChangeForAuthUserFieldName json = new ChangeForAuthUserFieldName(name);
         return given()
                 .header("Content-type", "application/json")

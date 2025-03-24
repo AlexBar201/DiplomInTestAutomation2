@@ -1,4 +1,4 @@
-package AndPointAndBaseUri;
+package and.point.and.base.uri;
 
 public class AndPoints {
     private final String END_POINT_AUTHORIZATION = "/api/auth";
