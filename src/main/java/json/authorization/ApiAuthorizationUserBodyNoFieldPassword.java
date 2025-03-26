@@ -1,8 +1,15 @@
-package json.jsonForApiAuthorization.forBodyResponseGetAccessToken;
+package json.authorization;
 
-public class User {
+public class ApiAuthorizationUserBodyNoFieldPassword {
     private String email;
     private String name;
+
+    public ApiAuthorizationUserBodyNoFieldPassword(String email, String name){
+        this.email = email;
+        this.name = name;
+    }
+
+    public ApiAuthorizationUserBodyNoFieldPassword(){}
 
     public String getEmail() {
         return email;

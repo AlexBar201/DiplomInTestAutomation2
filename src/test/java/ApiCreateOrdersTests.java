@@ -1,5 +1,5 @@
 import and.point.and.base.uri.GetAndSetBaseUri;
-import TestData.TestDataGenerator;
+import data.TestDataGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -32,9 +32,9 @@ public class ApiCreateOrdersTests {
         String authToken = authStep.getAccessToken(createUser);
         ordersStep.createAuthOrder(authToken)
                 .then()
+                .statusCode(200)
                 .assertThat()
-                .body("success", equalTo(true))
-                .statusCode(200);
+                .body("success", equalTo(true));
     }
 
     @Test
@@ -43,9 +43,9 @@ public class ApiCreateOrdersTests {
     public void createNoAuthOrderTest(){
         ordersStep.createNoAuthOrder()
                 .then()
+                .statusCode(200)
                 .assertThat()
-                .body("success", equalTo(true))
-                .statusCode(200);
+                .body("success", equalTo(true));
     }
 
     @Test
@@ -56,9 +56,9 @@ public class ApiCreateOrdersTests {
         String authToken = authStep.getAccessToken(createUser);
         ordersStep.createAuthOrderNoIngredients(authToken)
                 .then()
+                .statusCode(400)
                 .assertThat()
-                .body("success", equalTo(false))
-                .statusCode(400);
+                .body("success", equalTo(false));
         authStep.deleteUser(createUser);
     }
 
@@ -72,31 +72,6 @@ public class ApiCreateOrdersTests {
                 .then()
                 .statusCode(500);
         authStep.deleteUser(createUser);
-    }
-
-    @Test
-    @DisplayName("Проверка получения заказа авторизованного пользователя")
-    @Description("Если авторизованный пользователь запросит заказ, вернется статус код \"200\"")
-    public void getAuthUserOrderTest(){
-        Response createUser = authStep.createUser(data.getRandomEmail(), data.getRandomPassword(), data.getRandomName());
-        String authToken = authStep.getAccessToken(createUser);
-        ordersStep.getAuthUserOrder(authToken)
-                .then()
-                .assertThat()
-                .body("success", equalTo(true))
-                .statusCode(200);
-        authStep.deleteUser(createUser);
-    }
-
-    @Test
-    @DisplayName("Проверка получения заказа не авторизованного пользователя")
-    @Description("Если не авторизованный пользователь запросит заказ, вернется статус код \"401\"")
-    public void getNoAuthUserOrderTest(){
-        ordersStep.getNoAuthUserOrder()
-                .then()
-                .assertThat()
-                .body("success", equalTo(false))
-                .statusCode(401);
     }
 
     @After

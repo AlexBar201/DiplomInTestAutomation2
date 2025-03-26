@@ -1,5 +1,5 @@
 import and.point.and.base.uri.GetAndSetBaseUri;
-import TestData.TestDataGenerator;
+import data.TestDataGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
@@ -7,28 +7,30 @@ import org.junit.Before;
 import org.junit.Test;
 import steps.ApiAuthorizationSteps;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ApiAuthorizationUserTests {
 
     ApiAuthorizationSteps step = new ApiAuthorizationSteps();
     TestDataGenerator data = new TestDataGenerator();
+    String email = data.getRandomEmail();
+    String password = data.getRandomPassword();
+    String name = data.getRandomName();
+
 
     @Before
     public void setUp(){
         String configFilePath = "src/main/resources/config.properties";
         GetAndSetBaseUri setBaseUri = new GetAndSetBaseUri(configFilePath);
         setBaseUri.setUp();
+        step.createUser(email, password, name);
     }
 
     @Test
     @DisplayName("Проверка, что можно авторизоваться, под существующим логином и правильным паролем")
     @Description("Если передать корректные поля вернется статус код \"200\"")
     public void authorizationExistingUserTest(){
-        String email = data.getRandomEmail();
-        String password = data.getRandomPassword();
-        String name = data.getRandomName();
-        step.createUser(email, password, name);
         step.authorizationExistingUser(email, password)
                 .then()
                 .statusCode(200)
@@ -40,16 +42,12 @@ public class ApiAuthorizationUserTests {
     @DisplayName("Проверка, что нельзя авторизоваться, под не существующим логином и правильным паролем")
     @Description("Если передать некорректный логин вернется статус код \"401 Unauthorized\"")
     public void authorizationInvalidEmailUserTest(){
-        String email = data.getRandomEmail();
-        String password = data.getRandomPassword();
-        String name = data.getRandomName();
         String invalidEmail = data.getRandomInvalidEmail();
-        step.createUser(email, password, name);
         step.authorizationInvalidEmail(password, invalidEmail)
                 .then()
                 .statusCode(401)
                 .assertThat()
-                .body("success", equalTo(false));
+                .body("success", equalTo(false)).and().body("message", is("email or password are incorrect"));
     }
 
     @Test
@@ -60,7 +58,7 @@ public class ApiAuthorizationUserTests {
                 .then()
                 .statusCode(401)
                 .assertThat()
-                .body("success", equalTo(false));
+                .body("success", equalTo(false)).and().body("message", is("email or password are incorrect"));
     }
 
     @After

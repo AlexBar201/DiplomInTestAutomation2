@@ -1,4 +1,4 @@
-package json.jsonForApiOrders.ingredients;
+package json.orders.ingredients;
 
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonProperty;
 

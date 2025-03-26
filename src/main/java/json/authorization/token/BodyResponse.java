@@ -1,4 +1,4 @@
-package json.jsonForApiAuthorization.forBodyResponseGetAccessToken;
+package json.authorization.token;
 
 public class BodyResponse {
     private boolean success;

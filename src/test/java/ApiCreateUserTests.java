@@ -1,5 +1,5 @@
 import and.point.and.base.uri.GetAndSetBaseUri;
-import TestData.TestDataGenerator;
+import data.TestDataGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;

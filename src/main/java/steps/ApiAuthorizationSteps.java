@@ -3,11 +3,11 @@ package steps;
 import and.point.and.base.uri.AndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import json.jsonForApiAuthorization.ApiAuthorizationUserBody;
-import json.jsonForApiAuthorization.ApiAuthorizationUserBodyNoFieldPassword;
-import json.jsonForApiAuthorization.ChangeForAuthUserFieldEmail;
-import json.jsonForApiAuthorization.ChangeForAuthUserFieldName;
-import json.jsonForApiAuthorization.forBodyResponseGetAccessToken.BodyResponse;
+import json.authorization.ApiAuthorizationUserBody;
+import json.authorization.ApiAuthorizationUserBodyNoFieldPassword;
+import json.authorization.ChangeForAuthUserFieldEmail;
+import json.authorization.ChangeForAuthUserFieldName;
+import json.authorization.token.BodyResponse;
 
 import static io.restassured.RestAssured.given;
 

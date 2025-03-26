@@ -1,4 +1,4 @@
-package json.jsonForApiOrders.createOrderBody;
+package json.orders.create.order.body;
 
 import java.util.List;
 

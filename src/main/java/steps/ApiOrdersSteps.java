@@ -3,8 +3,8 @@ package steps;
 import and.point.and.base.uri.AndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import json.jsonForApiOrders.createOrderBody.CreateOrderBody;
-import json.jsonForApiOrders.ingredients.BodyGetIngredients;
+import json.orders.create.order.body.CreateOrderBody;
+import json.orders.ingredients.BodyGetIngredients;
 
 import java.util.Arrays;
 import java.util.List;
